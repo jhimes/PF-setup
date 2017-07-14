@@ -1,0 +1,3 @@
+pass in  proto {tcp udp} from <_any> to any  port { 53 67 68 123 389 636 5353 5354 3283 5988 52311 }  flags S/SA keep state 
+pass in  proto tcp from <_any> to any  port { 5900 88 5800 6129 3389 23  }  flags S/SA keep state 
+pass in  log (all, to pflog1) on en0 proto tcp from <_goodguys> to any  port ssh  flags S/SA keep state

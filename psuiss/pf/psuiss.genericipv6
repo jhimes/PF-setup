@@ -1,0 +1,15 @@
+############### GENERIC IPV6 RULES ###############
+#
+# Neighbor discovery solicitation out
+pass out inet6 proto ipv6-icmp all icmp6-type {neighbradv, neighbrsol}
+# Neighbor discovery advertisement in
+pass in inet6 proto ipv6-icmp all icmp6-type {neighbradv, neighbrsol}
+# NTP multicast
+pass in inet6 proto udp from any to any port 123 keep state
+# mDNS (Rendezvous/Bonjour)
+pass in inet6 proto udp from any to any port 5353 keep state
+pass out inet6 proto udp from any to any port 5353 keep state
+# DHCPv6
+pass out inet6 proto udp from any to any port 547 keep state
+pass in inet6 proto udp from any to any port 546 keep state
+

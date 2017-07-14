@@ -1,0 +1,96 @@
+# 
+# IceFloor Port Knocking anchor
+#
+# 
+#
+#
+# To access services protected with Port Knocking use 
+# a SSH client;
+# hit every key port for 2 TIMES in correct order then 
+# hit 2 times key1
+# to connect to protected services ports. If you miss 
+# the order you will be
+# blocked.
+#
+# Connection order:
+#
+# Key 1		(2 times)
+# Key 2		(2 times)
+# Key 3		(2 times)
+# Key 1		(2 times)
+#
+# For example if keys are 1234 5678 9100 then open 
+# terminal and type
+# ssh <ipaddress> -p 1234			-> hit ENTER 
+# -> hit CTRL C to stop; repeat one more time;
+# ssh <ipaddress> -p 5678			-> hit ENTER 
+# -> hit CTRL C to stop; repeat one more time;
+# ssh <ipaddress> -p 9100			-> hit ENTER 
+# -> hit CTRL C to stop; repeat one more time;
+# ssh <ipaddress> -p 1234			-> hit ENTER 
+# -> hit CTRL C to stop; repeat one more time;
+# Protected services are now open. Connect to your 
+# services using your favourite clients.
+# If correctly installed, IceFloor will reset authori-
+# zations every 30 minutes.
+# Blocked IP list will be reset every 15 minutes like 
+# authorizations.
+# Synproxy PF option in bugged in OS X: do not put 
+# max-src-conn values higher than 1.
+# Please note: option "max-src-conn 1" means you have 
+# to connect 2 times.
+# Port Knocking is an experimental feature in IceFloor, 
+# use it with caution. 
+#
+# EXAMPLE RULESET: hide web server (TCP port 80) with 
+# key "1234 5678 9100" and black hole "2222"
+#
+# TABLES
+# 
+# table <pk1> {} persist
+# table <pk2> {} persist
+# table <pk3> {} persist
+# table <authorized_ips> {} persist
+# table <blocked_ips> {} persist
+# 
+# KEYS
+# pass in inet proto tcp from any to any port 1234 \ 
+# synproxy state (max-src-conn 1, overload <pk1> \
+# flush global)
+# pass in inet proto tcp from <pk1> to any port 5678 \
+# synproxy state (max-src-conn 1, overload <pk2> \
+# flush global)
+# pass in inet proto tcp from <pk2> to any port 9100 \
+# synproxy state (max-src-conn 1, overload <pk3> \
+# flush global)
+# pass in inet proto tcp from <pk3> to any port 1234 \
+# synproxy state (max-src-conn 1, overload <authorized_ips> \
+# flush global)
+# 
+# BLOCK 
+# pass in inet proto tcp from any to any port 5678 \
+# synproxy state (max-src-conn 1, overload <blocked_ips> \
+# flush global)
+# pass in inet proto tcp from any to any port 9100 \
+# synproxy state (max-src-conn 1, overload <blocked_ips> \
+# flush global)
+#
+# FILTERING
+# block in quick proto tcp from <blocked_ips> to any \
+# port = 80
+# pass in proto tcp from <authorized_ips> to any port \
+# = 22 flags S/SA keep state
+##############################################################
+
+
+# define tables (always defined even if P.K. is disabled in IceFloor)
+table <pk1> {} persist
+table <pk2> {} persist
+table <pk3> {} persist
+table <authorized_ips> {} persist
+table <blocked_ips> {} persist
+
+# rules added by IceFloor.app 
+#
+
+

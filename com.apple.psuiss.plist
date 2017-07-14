@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.apple.psuiss</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/etc/psuiss.sh</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>ServiceDescription</key>
+	<string>PFLists: starting PF firewall</string>
+	<key>ExitTimeOut</key>
+	<integer>1</integer>
+</dict>
+</plist>

@@ -1,0 +1,6 @@
+table <_any> {0.0.0.0/0 ::/0 } persist
+table <_blacklist> {} persist
+table <_outbound> {0.0.0.0/0 ::/0 } persist
+table <_outbound_egress> {128.118.226.67 } persist
+table <_outbound_nat> {} persist
+table <_goodguys> {75.102.64.0/18, 130.203.160.0/19, 130.203.64.0/18, 104.38.0.0/15, 172.25.0.0/19} persist

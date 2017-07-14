@@ -1,0 +1,2 @@
+pass in quick proto udp from any port 5353 to 224.0.0.251 port mdns keep state allow-opts
+pass out quick proto udp from any port 5353 to 224.0.0.251 port mdns keep state allow-opts

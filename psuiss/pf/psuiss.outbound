@@ -1,0 +1,4 @@
+pass out proto {tcp udp} from <_outbound> to any  port { 1:65535  }  flags S/SA keep state 
+pass out proto icmp from <_outbound> to any  keep state 
+pass out proto igmp from <_outbound> to any  keep state 
+pass out proto ipv6-icmp from <_outbound> to any 
